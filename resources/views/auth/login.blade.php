@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center" style="background: linear-gradient(135deg, #fff 0%, #f1f5f9 100%);">
+    <div class="min-h-screen flex items-center justify-center">
         <div class="w-full max-w-md">
             <div class="bg-white rounded-2xl shadow-lg p-8 m-4">
                 <!-- Logo and Title -->
