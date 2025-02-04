@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,45 +16,13 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            [
-                'username' => 'admin01',
-                'name' => 'Administrator',
-                'email' => 'admin@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('adminpassword'),
-                'role' => 'admin',
-                'foto_profile' => 'admin.jpg',
-                'is_active' => true,
-                'remember_token' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'username' => 'dosen01',
-                'name' => 'Dr. Dosen',
-                'email' => 'dosen@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('dosenpassword'),
-                'role' => 'dosen',
-                'foto_profile' => 'dosen.jpg',
-                'is_active' => true,
-                'remember_token' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'username' => 'mahasiswa01',
-                'name' => 'Budi Mahasiswa',
-                'email' => 'budi@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('mahasiswapassword'),
-                'role' => 'mahasiswa',
-                'foto_profile' => 'budi.jpg',
-                'is_active' => true,
-                'remember_token' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
+            ['id' => 1, 'name' => 'Admin', 'username' => 'admin', 'email' => 'admin@example.com', 'password' => Hash::make('password'), 'role' => 'admin'],
+            ['id' => 2, 'name' => 'Dr. Budi Santoso', 'username' => 'budi', 'email' => 'budi@example.com', 'password' => Hash::make('password'), 'role' => 'dosen'],
+            ['id' => 3, 'name' => 'Siti Aisyah', 'username' => 'siti', 'email' => 'siti@example.com', 'password' => Hash::make('password'), 'role' => 'dosen'],
+            ['id' => 4, 'name' => 'Ahmad Fadli', 'username' => 'ahmad', 'email' => 'ahmad@example.com', 'password' => Hash::make('password'), 'role' => 'dosen'],
+            ['id' => 5, 'name' => 'Rizky Ramadhan', 'username' => 'rizky', 'email' => 'rizky@example.com', 'password' => Hash::make('password'), 'role' => 'mahasiswa'],
+            ['id' => 6, 'name' => 'Fitri Lestari', 'username' => 'fitri', 'email' => 'fitri@example.com', 'password' => Hash::make('password'), 'role' => 'mahasiswa'],
+            ['id' => 7, 'name' => 'Doni Saputra', 'username' => 'doni', 'email' => 'doni@example.com', 'password' => Hash::make('password'), 'role' => 'mahasiswa'],
         ]);
     }
 }
