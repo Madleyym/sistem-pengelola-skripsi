@@ -12,7 +12,7 @@ class SkripsiController extends Controller
 {
     public function index()
     {
-        $skripsis = Skripsi::with(['mahasiswa', 'pembimbing1', 'pembimbing2'])->get();
+        $skripsis = Skripsi::with(['mahasiswa', 'pembimbing1', 'pembimbing2'])->paginate(10);
         return view('skripsi.index', compact('skripsis'));
     }
 
