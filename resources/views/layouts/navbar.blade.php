@@ -80,7 +80,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">SIMTA</a>
+            <a class="navbar-brand" href="{{ url('/') }}">SIPENSI</a>
             
             <div class="d-flex align-items-center">
                 <!-- Mobile Sidebar Toggle -->
@@ -171,6 +171,7 @@
                             <i class="fas fa-book"></i> Skripsi
                         </a>
                     </li>
+                    
                 </ul>
             </div>
             @endauth
