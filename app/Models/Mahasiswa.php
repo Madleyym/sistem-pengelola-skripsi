@@ -36,6 +36,7 @@ class Mahasiswa extends Model
     // Relasi dengan Skripsi
     public function skripsi()
     {
-        return $this->hasOne(Skripsi::class);
+        return $this->hasOne(Skripsi::class);;
     }
+    
 }
