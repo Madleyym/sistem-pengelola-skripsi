@@ -30,11 +30,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/skripsi', [SkripsiController::class, 'index'])->name('skripsi.index');
-    Route::get('/skripsi/create', [SkripsiController::class, 'create'])->name('skripsi.create');
-    Route::post('/skripsi', [SkripsiController::class, 'store'])->name('skripsi.store');
-    Route::get('/skripsi/{skripsi}', [SkripsiController::class, 'show'])->name('skripsi.show');
+    Route::get('/skripsi', [SkripsiController::class, 'index'])->name('skripsi.index'); // List skripsi
+    Route::get('/skripsi/create', [SkripsiController::class, 'create'])->name('skripsi.create'); // Form create skripsi
+    Route::post('/skripsi', [SkripsiController::class, 'store'])->name('skripsi.store'); // Simpan skripsi baru
+    Route::get('/skripsi/{skripsi}', [SkripsiController::class, 'show'])->name('skripsi.show'); // Detail skripsi
+    Route::get('/skripsi/{skripsi}/edit', [SkripsiController::class, 'edit'])->name('skripsi.edit'); // Form edit skripsi
+    Route::put('/skripsi/{skripsi}', [SkripsiController::class, 'update'])->name('skripsi.update'); // Update skripsi
+    Route::delete('/skripsi/{skripsi}', [SkripsiController::class, 'destroy'])->name('skripsi.destroy'); // Hapus skripsi
 });
+
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 //     Route::resource('thesis', 'ThesisController');
@@ -44,3 +48,4 @@ Route::middleware('auth')->group(function () {
 // });
 
 require __DIR__.'/auth.php';
+
