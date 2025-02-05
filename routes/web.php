@@ -35,5 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/skripsi', [SkripsiController::class, 'store'])->name('skripsi.store');
     Route::get('/skripsi/{skripsi}', [SkripsiController::class, 'show'])->name('skripsi.show');
 });
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+//     Route::resource('thesis', 'ThesisController');
+//     Route::resource('schedule', 'ScheduleController');
+//     Route::resource('documents', 'DocumentController');
+//     // ... other routes
+// });
 
 require __DIR__.'/auth.php';
