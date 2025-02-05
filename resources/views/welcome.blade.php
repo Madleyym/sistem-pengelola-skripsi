@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SIPENSI - Sistem Informasi Penelitian Skripsi untuk memudahkan mahasiswa dalam mengelola dan memantau progress skripsi">
     <title>SIPENSI - Sistem Informasi Penelitian Skripsi</title>
+    <link rel="icon" href="{{ asset('resources/images/icon-toga.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('images/logo-toga.png') }}" type="image/png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -344,7 +346,7 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content text-center">
-                <img src="/images/logo.png" alt="SIPENSI Logo" class="logo" data-aos="fade-down">
+                <img src="resources/images/logo-toga.png" alt="SIPENSI Logo" class="logo" data-aos="fade-down">
                 <h1 class="title" data-aos="fade-up">Wujudkan Skripsi Impian Anda</h1>
                 <p class="subtitle" data-aos="fade-up" data-aos-delay="100">
                     Platform modern dan terintegrasi yang memudahkan proses penelitian skripsi Anda. Dengan SIPENSI, kelola dan pantau progress skripsi menjadi lebih efisien dan terstruktur.
