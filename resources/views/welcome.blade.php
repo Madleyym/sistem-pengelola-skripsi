@@ -18,9 +18,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #818cf8;
-            --accent-color: #c7d2fe;
+            --primary-color: #4d44f8;
+            --secondary-color: #4456f3;
+            --accent-color: #bac7fd;
             --text-primary: #1e293b;
             --text-secondary: #475569;
         }
