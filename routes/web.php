@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkripsiController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/skripsi/{skripsi}', [SkripsiController::class, 'destroy'])->name('skripsi.destroy'); // Hapus skripsi
 });
 
+Route::get('resources/images/{filename}', function ($filename) {
+    $path = resource_path('images/' . $filename);
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    
+    return Response::file($path);
+});
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 //     Route::resource('thesis', 'ThesisController');
