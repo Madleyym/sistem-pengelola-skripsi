@@ -1,100 +1,244 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                </div>
+{{-- resources/views/layouts/navigation.blade.php --}}
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top bg-white">
+    <div class="container-fluid">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link d-lg-none me-2" id="sidebar-toggle">
+            <i class="mdi mdi-menu"></i>
+        </button>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+        <!-- Brand Logo -->
+        <a class="navbar-brand fw-bold text-primary" href="{{ route('dashboard') }}">
+            <i class="mdi mdi-school me-2"></i>SIPENSI
+        </a>
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+        <!-- Right Navigation Items -->
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <!-- Notifications Dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-link position-relative" data-bs-toggle="dropdown" 
+                        aria-expanded="false" id="notificationDropdown">
+                    <i class="mdi mdi-bell text-secondary"></i>
+                    @if($unreadNotifications = Auth::user()->unreadNotifications->count())
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $unreadNotifications > 99 ? '99+' : $unreadNotifications }}
+                        </span>
+                    @endif
                 </button>
+                <ul class="dropdown-menu dropdown-menu-end notification-dropdown">
+                    <li class="dropdown-header">
+                        <h6 class="mb-0">Notifikasi</h6>
+                        @if($unreadNotifications)
+                            <small class="text-muted">{{ $unreadNotifications }} pesan baru</small>
+                        @endif
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    @forelse(Auth::user()->notifications()->latest()->limit(5)->get() as $notification)
+                        <li>
+                            <a class="dropdown-item {{ $notification->read_at ? '' : 'unread' }}" 
+                               href="{{ route('notifications.show', $notification->id) }}">
+                                <i class="mdi {{ $notification->data['icon'] ?? 'mdi-bell' }} me-2"></i>
+                                <div>
+                                    <p class="mb-0">{{ $notification->data['message'] }}</p>
+                                    <small class="text-muted">
+                                        {{ $notification->created_at->diffForHumans() }}
+                                    </small>
+                                </div>
+                            </a>
+                        </li>
+                    @empty
+                        <li>
+                            <div class="dropdown-item text-center text-muted">
+                                Tidak ada notifikasi
+                            </div>
+                        </li>
+                    @endforelse
+                    @if(Auth::user()->notifications->count() > 5)
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-center" href="{{ route('notifications.index') }}">
+                                Lihat Semua Notifikasi
+                            </a>
+                        </li>
+                    @endif
+                </ul>
             </div>
-        </div>
-    </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+            <!-- Vertical Divider -->
+            <div class="vr"></div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+            <!-- User Profile Dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-link p-0 d-flex align-items-center gap-2" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    @if(Auth::user()->foto_profile)
+                        <img src="{{ asset('storage/'.Auth::user()->foto_profile) }}" 
+                             alt="{{ Auth::user()->name }}" 
+                             class="rounded-circle" 
+                             width="32" 
+                             height="32">
+                    @else
+                        <img src="{{ asset('images/default-avatar.png') }}" 
+                             alt="{{ Auth::user()->name }}" 
+                             class="rounded-circle" 
+                             width="32" 
+                             height="32">
+                    @endif
+                    <span class="d-none d-md-inline text-secondary">{{ Auth::user()->name }}</span>
+                    <i class="mdi mdi-chevron-down text-secondary"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                            <i class="mdi mdi-account me-2"></i>Profil
+                        </a>
+                    </li>
+                    @if(Auth::user()->role === 'admin')
+                        <li>
+                            <a class="dropdown-item" href="{{ route('settings.index') }}">
+                                <i class="mdi mdi-cog me-2"></i>Pengaturan
+                            </a>
+                        </li>
+                    @endif
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">
+                                <i class="mdi mdi-logout me-2"></i>Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </nav>
+
+<style>
+    /* Navbar Styles */
+    .navbar {
+        padding: 0.5rem 1rem;
+        background: var(--surface) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .navbar-brand {
+        font-size: 1.25rem;
+        color: var(--primary) !important;
+    }
+
+    /* Notification Styles */
+    .notification-dropdown {
+        width: 320px;
+        padding: 0;
+        max-height: 480px;
+        overflow-y: auto;
+    }
+
+    .notification-dropdown .dropdown-header {
+        padding: 1rem;
+        background: rgba(var(--bs-primary-rgb), 0.05);
+    }
+
+    .notification-dropdown .dropdown-item {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        white-space: normal;
+    }
+
+    .notification-dropdown .dropdown-item.unread {
+        background: rgba(var(--bs-primary-rgb), 0.05);
+    }
+
+    .notification-dropdown .dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    /* User Dropdown Styles */
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+    }
+
+    .dropdown-item {
+        padding: 0.5rem 1rem;
+        color: var(--text-primary);
+        transition: all 0.2s;
+    }
+
+    .dropdown-item:hover {
+        background: rgba(var(--bs-primary-rgb), 0.05);
+        color: var(--primary);
+    }
+
+    .dropdown-item.text-danger:hover {
+        background: rgba(var(--bs-danger-rgb), 0.05);
+        color: var(--bs-danger);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 0.25rem 0.5rem;
+        }
+
+        .notification-dropdown {
+            width: 280px;
+        }
+    }
+
+    /* Dark Mode Support */
+    @media (prefers-color-scheme: dark) {
+        .navbar {
+            background: var(--dark-surface) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-menu {
+            background: var(--dark-surface);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item {
+            color: var(--dark-text);
+        }
+
+        .notification-dropdown .dropdown-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .notification-dropdown .dropdown-header {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mark notifications as read when dropdown is opened
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        if (notificationDropdown) {
+            notificationDropdown.addEventListener('show.bs.dropdown', function() {
+                fetch('{{ route("notifications.markAsRead") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                });
+            });
+        }
+
+        // Prevent dropdown from closing when clicking inside notification items
+        const notificationItems = document.querySelectorAll('.notification-dropdown .dropdown-item');
+        notificationItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
