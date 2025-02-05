@@ -139,16 +139,16 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="nav flex-column">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('dashboard') }}" class="nav-link">
                 <i class="fas fa-home me-2"></i>Dashboard
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('skripsi.index') }}" class="nav-link">
                 <i class="fas fa-file-alt me-2"></i>Skripsi Saya
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('skripsi.create') }}" class="nav-link">
                 <i class="fas fa-calendar me-2"></i>Jadwal Bimbingan
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('skripsi.index') }}" class="nav-link">
                 <i class="fas fa-folder me-2"></i>Dokumen
             </a>
         </div>
