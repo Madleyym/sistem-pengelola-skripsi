@@ -41,4 +41,37 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Define role constants
+    const ROLE_ADMIN = 'admin';
+    const ROLE_DOSEN = 'dosen';
+    const ROLE_MAHASISWA = 'mahasiswa';
+
+    // check if user is an admin
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isDosen()
+    {
+        return $this->role === self::ROLE_DOSEN;
+    }
+
+    public function isMahasiswa()
+    {
+        return $this->role === self::ROLE_MAHASISWA;
+    }
+
+    // Relationship with dosen
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class);
+    }
+
+    // Relationship with mahasiswa
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class);
+    }
 }
