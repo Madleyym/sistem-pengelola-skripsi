@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Dosen\DashboardController as DosenDashboardController;
+use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkripsiController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +22,32 @@ use Illuminate\Support\Facades\Response;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Login Routes
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Admin Routes
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name
+    ('admin.dashboard');
+});
+
+// Dosen Routes
+Route::middleware(['auth', 'role:dosen'])->group(function () {
+    Route::get('/dosen/dashboard', [DosenDashboardController::class, 'index'])->name
+    ('dosen.dashboard');
+});
+
+// Mahasiswa Routes
+Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
+    Route::get('/mahasiswa/dashboard', [MahasiswaDashboardController::class, 'index'])->name
+    ('mahasiswa.dashboard');
+    Route::get('/mahasiswa/show', function () {
+        return view('mahasiswa.show');
+    });
 });
 
 Route::get('/dashboard', function () {
@@ -42,11 +72,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('resources/images/{filename}', function ($filename) {
     $path = resource_path('images/' . $filename);
-    
+
     if (!file_exists($path)) {
         abort(404);
     }
-    
+
     return Response::file($path);
 });
 // Route::middleware(['auth'])->group(function () {
