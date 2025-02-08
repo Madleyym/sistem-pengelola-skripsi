@@ -8,7 +8,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <h3>Detail Mahasiswa</h3>
-                <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary">
+                <a href="{{ route('mahasiswa.dashboard') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </a>
             </div>
@@ -52,10 +52,10 @@
                         <tr>
                             <th>Status</th>
                             <td>
-                                <span class="badge bg-{{ 
-                                    $mahasiswa->status === 'aktif' ? 'success' : 
-                                    ($mahasiswa->status === 'cuti' ? 'warning' : 
-                                    ($mahasiswa->status === 'lulus' ? 'info' : 'danger')) 
+                                <span class="badge bg-{{
+                                    $mahasiswa->status === 'aktif' ? 'success' :
+                                    ($mahasiswa->status === 'cuti' ? 'warning' :
+                                    ($mahasiswa->status === 'lulus' ? 'info' : 'danger'))
                                 }}">
                                     {{ ucfirst($mahasiswa->status) }}
                                 </span>
@@ -88,11 +88,11 @@
                     <tr>
                         <th>Status Skripsi</th>
                         <td>
-                            <span class="badge bg-{{ 
-                                $mahasiswa->skripsi->status === 'selesai' ? 'success' : 
-                                ($mahasiswa->skripsi->status === 'bimbingan' ? 'primary' : 
-                                ($mahasiswa->skripsi->status === 'seminar' ? 'info' : 
-                                ($mahasiswa->skripsi->status === 'sidang' ? 'warning' : 'secondary'))) 
+                            <span class="badge bg-{{
+                                $mahasiswa->skripsi->status === 'selesai' ? 'success' :
+                                ($mahasiswa->skripsi->status === 'bimbingan' ? 'primary' :
+                                ($mahasiswa->skripsi->status === 'seminar' ? 'info' :
+                                ($mahasiswa->skripsi->status === 'sidang' ? 'warning' : 'secondary')))
                             }}">
                                 {{ ucfirst($mahasiswa->skripsi->status) }}
                             </span>
