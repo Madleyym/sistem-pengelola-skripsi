@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - SIPENSI Premium</title>
+    <title>Admin Dashboard - SIPENSI Premium</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,10 +16,10 @@
 
     <style>
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #a78bfa;
-            --background-color: #f4f4ff;
+            --primary-color: #2563eb;
+            --secondary-color: #1d4ed8;
+            --accent-color: #3b82f6;
+            --background-color: #f8fafc;
             --card-background: #ffffff;
             --text-primary: #1f2937;
             --text-secondary: #6b7280;
@@ -61,18 +61,14 @@
         .dashboard-card {
             border-radius: 20px;
             background: var(--card-background);
-            box-shadow:
-                0 15px 35px rgba(0,0,0,0.05),
-                0 5px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.03);
             border: none;
             overflow: hidden;
         }
 
         .dashboard-card:hover {
-            transform: translateY(-10px);
-            box-shadow:
-                0 25px 50px rgba(0,0,0,0.1),
-                0 10px 20px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.05);
         }
 
         .card-header {
@@ -97,15 +93,11 @@
             transform: translateX(5px);
         }
 
-        .progress {
-            background-color: rgba(99, 102, 241, 0.2);
-            height: 12px;
-            border-radius: 20px;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 20px;
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
         }
 
         .btn-custom {
@@ -114,17 +106,16 @@
             color: white;
             font-weight: 600;
             transition: all 0.4s ease;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
 
         .btn-custom:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
 
-        .badge {
-            font-weight: 500;
-            padding: 5px 10px;
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -132,26 +123,26 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">SIPENSI</a>
+        <a class="navbar-brand" href="#">SIPENSI ADMIN</a>
         <div class="ms-auto d-flex align-items-center">
             <div class="dropdown me-3">
                 <a href="#" class="dropdown-toggle text-white text-decoration-none" data-bs-toggle="dropdown">
                     <i class="fas fa-bell"></i>
-                    <span class="badge bg-danger rounded-circle ms-1">3</span>
+                    <span class="badge bg-danger rounded-circle ms-1">5</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end glass-morphism">
-                    <li><a class="dropdown-item" href="#">Bimbingan baru</a></li>
-                    <li><a class="dropdown-item" href="#">Deadline dekat</a></li>
-                    <li><a class="dropdown-item" href="#">Dokumen diperbarui</a></li>
+                    <li><a class="dropdown-item" href="#">Pendaftaran baru</a></li>
+                    <li><a class="dropdown-item" href="#">Permintaan bimbingan</a></li>
+                    <li><a class="dropdown-item" href="#">Laporan sistem</a></li>
                 </ul>
             </div>
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="/api/placeholder/50/50" class="rounded-circle border border-2 border-white" alt="Profile">
+                    <img src="/api/placeholder/50/50" class="rounded-circle border border-2 border-white" alt="Admin">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end glass-morphism">
-                    <li><a class="dropdown-item" href="#">Profil</a></li>
-                    <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                    <li><a class="dropdown-item" href="#">Admin Settings</a></li>
+                    <li><a class="dropdown-item" href="#">System Log</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
@@ -174,22 +165,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-book me-2"></i>Skripsi Saya
+                            <i class="fas fa-users me-2"></i>Mahasiswa
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-calendar-alt me-2"></i>Jadwal Bimbingan
+                            <i class="fas fa-chalkboard-teacher me-2"></i>Dosen
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-file-alt me-2"></i>Dokumen
+                            <i class="fas fa-book me-2"></i>Skripsi
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-comments me-2"></i>Konsultasi
+                            <i class="fas fa-cog me-2"></i>Pengaturan
                         </a>
                     </li>
                 </ul>
@@ -198,61 +189,74 @@
 
         <!-- Main Content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-5 mt-4">
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="dashboard-card stats-card animate__animated animate__fadeIn">
+                        <h3 class="mb-0">2,450</h3>
+                        <p class="mb-0">Total Mahasiswa</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-card stats-card animate__animated animate__fadeIn">
+                        <h3 class="mb-0">156</h3>
+                        <p class="mb-0">Total Dosen</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-card stats-card animate__animated animate__fadeIn">
+                        <h3 class="mb-0">1,280</h3>
+                        <p class="mb-0">Skripsi Aktif</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-card stats-card animate__animated animate__fadeIn">
+                        <h3 class="mb-0">85%</h3>
+                        <p class="mb-0">Tingkat Kelulusan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
             <div class="row">
                 <div class="col-md-8">
-                    <div class="card dashboard-card mb-4 animate__animated animate__fadeIn">
-                        <div class="card-header">Progress Skripsi</div>
+                    <div class="card dashboard-card mb-4 animate__animated animate__fadeInLeft">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Aktivitas Terbaru</span>
+                            <button class="btn btn-sm btn-light">Lihat Semua</button>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Analisis Pengaruh Media Sosial</h5>
-                            <div class="progress mt-3">
-                                <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex justify-content-between mt-2">
-                                <small class="text-secondary">Tahap: Pengumpulan Data</small>
-                                <small class="text-primary fw-bold">65%</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card dashboard-card mb-4 animate__animated animate__fadeInLeft">
-                                <div class="card-header">Jadwal Dekat</div>
-                                <div class="card-body">
-                                    <ul class="list-unstyled">
-                                        <li class="mb-3 p-2 rounded-3 bg-light">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="fw-semibold">Bimbingan BAB 2</span>
-                                                <small class="badge bg-danger">3 hari lagi</small>
-                                            </div>
-                                        </li>
-                                        <li class="p-2 rounded-3 bg-light">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="fw-semibold">Seminar Proposal</span>
-                                                <small class="badge bg-warning">2 minggu lagi</small>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card dashboard-card mb-4 animate__animated animate__fadeInRight">
-                                <div class="card-header">Status Dokumen</div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-3 p-2 rounded-3 bg-light">
-                                        <span>Proposal</span>
-                                        <span class="badge bg-success">Disetujui</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-3 p-2 rounded-3 bg-light">
-                                        <span>BAB 1</span>
-                                        <span class="badge bg-warning">Revisi</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center p-2 rounded-3 bg-light">
-                                        <span>BAB 2</span>
-                                        <span class="badge bg-secondary">Proses</span>
-                                    </div>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Mahasiswa</th>
+                                            <th>Aktivitas</th>
+                                            <th>Status</th>
+                                            <th>Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Budi Santoso</td>
+                                            <td>Pengajuan Proposal</td>
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                            <td>2024-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ani Wijaya</td>
+                                            <td>Sidang Skripsi</td>
+                                            <td><span class="badge bg-success">Selesai</span></td>
+                                            <td>2024-02-09</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deni Prakoso</td>
+                                            <td>Bimbingan BAB 3</td>
+                                            <td><span class="badge bg-info">Proses</span></td>
+                                            <td>2024-02-08</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -260,13 +264,28 @@
 
                 <div class="col-md-4">
                     <div class="card dashboard-card mb-4 animate__animated animate__fadeInRight">
-                        <div class="card-header">Dosen Pembimbing</div>
-                        <div class="card-body text-center">
-                            <img src="/api/placeholder/120/120" class="rounded-circle mb-3 border border-3 border-primary" alt="Dosen Pembimbing">
-                            <h6 class="mb-1 fw-bold">Dr. Sarah Wijaya, M.Si</h6>
-                            <small class="text-secondary">Pembimbing Utama</small>
-                            <div class="mt-3">
-                                <a href="#" class="btn btn-custom btn-sm w-100">Konsultasi</a>
+                        <div class="card-header">Notifikasi Sistem</div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3 p-2 rounded-3 bg-light">
+                                <i class="fas fa-exclamation-circle text-warning me-2"></i>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Server Load High</p>
+                                    <small class="text-muted">2 menit yang lalu</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3 p-2 rounded-3 bg-light">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Backup Complete</p>
+                                    <small class="text-muted">1 jam yang lalu</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center p-2 rounded-3 bg-light">
+                                <i class="fas fa-sync text-primary me-2"></i>
+                                <div>
+                                    <p class="mb-0 fw-semibold">System Update</p>
+                                    <small class="text-muted">2 jam yang lalu</small>
+                                </div>
                             </div>
                         </div>
                     </div>
