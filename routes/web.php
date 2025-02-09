@@ -48,6 +48,7 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/show', function () {
         return view('mahasiswa.show');
     });
+
 });
 
 Route::get('/dashboard', function () {
